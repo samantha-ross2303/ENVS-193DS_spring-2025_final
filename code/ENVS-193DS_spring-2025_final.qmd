@@ -1,0 +1,112 @@
+---
+title: "ENVS-193DS_spring-2025_final"
+author: "Samantha Ross"
+date: "11-06-2025"
+format:
+  html:
+    toc: true # use this to display a table of contents
+execute:
+  message: false # use this to make sure messages don't show up
+  warning: false # use this to make sure warnings don't show up
+---
+
+# Set up
+
+```{r set-up}
+
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(flextable)
+library(gt)
+library(here)
+library(janitor)
+library(readxl)
+library(dplyr)
+library(scales)
+
+sst <- read_csv(here("data", "SST_update2023.csv")) # storing SBC LTER sea surface temp data as an object called sst
+
+```
+
+# Problem 1. Research writng 
+
+## a. Transparent statistical methods
+
+## b. More information needed
+
+## c. Suggestions for rewriting
+
+# Problem 2. Data visualization
+
+## a. Cleaning and summarizing
+
+```{r cleaning-and-summarizing}
+#creating a clean data set
+sst_clean <- sst |>
+  #cleaning column names 
+  clean_names()|>
+  mutate(
+    date = ymd(date), # making sure date is read as a date
+    year = year(date), # creating a new column called year, read as a factor
+    month = month(date) # creating a new column called month, read as a factor
+    ) |> 
+  # keep only data from 2018 and later
+  filter(year >= 2018) |> 
+  # converting year to a factor with 6 levels
+  mutate(year = as_factor(year), 
+         year = fct_relevel(year,
+                            "2018",
+                            "2019",
+                            "2020",
+                            "2021",
+                            "2022",
+                            "2023")) |> 
+  # renaming numeric months to full name
+  mutate(month = case_when(
+    month == "1" ~ "January",
+    month == "2" ~ "February",
+    month =="3" ~ "March",
+    month == "4" ~ "April",
+    month == "5" ~ "May",
+    month == "6" ~ "June",
+    month == "7" ~ "July",
+    month == "8" ~ "August",
+    month == "9" ~ "September",
+    month == "10" ~ "October",
+    month == "11" ~ "November",
+    month == "12" ~ "December"),
+    # converting month to an ordered factor with 12 levels
+    month = factor(month,
+                   levels = c(
+                     "January",
+                     "February",
+                     "March",
+                     "April",
+                     "May",
+                     "June",
+                     "July",
+                     "August",
+                     "September",
+                     "October",
+                     "November",
+                     "December"),
+                   ordered = TRUE)) |> 
+  # grouping by year and month
+  group_by(year, month) |>
+  # creating a new column called mean_monthly_sst, where the mean SST is calculated, and excluding missing values, rounded to one decimal place
+  summarize(mean_monthly_sst = round(mean(temp, na.rm = TRUE), 1)) |> 
+  # ungroup data frame
+  ungroup()
+
+# Display 5 random rows
+sst_clean |> slice_sample(n = 5)
+
+# Structure
+str(sst_clean)
+```
+
+# Problem 3. Data analysis
+# Problem 4. Affective and exploratory visualizations
+
+
