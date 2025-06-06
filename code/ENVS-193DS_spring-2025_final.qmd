@@ -64,33 +64,33 @@ sst_clean <- sst |>
                             "2023")) |> 
   # renaming numeric months to full name
   mutate(month = case_when(
-    month == "1" ~ "January",
-    month == "2" ~ "February",
-    month =="3" ~ "March",
-    month == "4" ~ "April",
+    month == "1" ~ "Jan",
+    month == "2" ~ "Feb",
+    month =="3" ~ "Mar",
+    month == "4" ~ "Apr",
     month == "5" ~ "May",
-    month == "6" ~ "June",
-    month == "7" ~ "July",
-    month == "8" ~ "August",
-    month == "9" ~ "September",
-    month == "10" ~ "October",
-    month == "11" ~ "November",
-    month == "12" ~ "December"),
+    month == "6" ~ "Jun",
+    month == "7" ~ "Jul",
+    month == "8" ~ "Aug",
+    month == "9" ~ "Sep",
+    month == "10" ~ "Oct",
+    month == "11" ~ "Nov",
+    month == "12" ~ "Dec"),
     # converting month to an ordered factor with 12 levels
     month = factor(month,
                    levels = c(
-                     "January",
-                     "February",
-                     "March",
-                     "April",
+                     "Jan",
+                     "Feb",
+                     "Mar",
+                     "Apr",
                      "May",
-                     "June",
-                     "July",
-                     "August",
-                     "September",
-                     "October",
-                     "November",
-                     "December"),
+                     "Jun",
+                     "Jul",
+                     "Aug",
+                     "Sep",
+                     "Oct",
+                     "Nov",
+                     "Dec"),
                    ordered = TRUE)) |> 
   # grouping by year and month
   group_by(year, month) |>
@@ -104,6 +104,47 @@ sst_clean |> slice_sample(n = 5)
 
 # Structure
 str(sst_clean)
+```
+
+## b. Visualize the data
+
+```{r visualize-the-data}
+
+# starting with the clean data frame
+ggplot(sst_clean,
+       aes(x = month, # month on the x-axis 
+           y = mean_monthly_sst, # mean monthly sea surface temp on the y-axis
+           color = year, # color by year
+           group = year)) + # group by year
+  # creating a line plot with specified line size
+  geom_line(linewidth = 1)+
+  # adding points with a specified size
+  geom_point(size = 2) +
+  # customizing color gradient
+  scale_color_brewer(
+    palette = "Blues", # blue color gradient
+    direction = "1" # light to dark
+  ) +
+  # changing axis and legend titles
+  labs(
+    x = "Month", # changing the name of the x-axis
+    y = "Mean monthly sea surface temperature (°C)", # changing the name of the y-axis
+    color = "Year" # changing the name of the legend
+  ) +
+  # changing the theme
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(color = "grey40", fill = NA), # adding a border
+    panel.grid = element_blank(), # removing the grid
+    legend.position = c(0.25, 0.75), # changing the position of the legend
+    # changing the text sizes and colors
+    legend.title = element_text(size = 14), 
+    legend.text = element_text(size = 10),
+    axis.text = element_text(size = 10, color = "grey40"),
+    axis.title = element_text(size = 14),
+    axis.ticks = element_line(color = "grey40") # adding ticks for the axes
+  )
+
 ```
 
 # Problem 3. Data analysis
