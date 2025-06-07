@@ -1,7 +1,7 @@
 ---
 title: "ENVS-193DS_spring-2025_final"
 author: "Samantha Ross"
-date: "11-06-2025"
+date: "06-11-2025"
 format:
   html:
     toc: true # use this to display a table of contents
@@ -148,6 +148,15 @@ ggplot(sst_clean,
 ```
 
 # Problem 3. Data analysis
+
+
 # Problem 4. Affective and exploratory visualizations
 
+## a. Comparing visualizations
+
+The visualizations represent different data that I collected, in a way. The predictor variable in my affective visualization is the date (on the x-axis), and the response variable is distance ran/walked per day (on the y-axis) - since it is going in chronological order. There is an additional overlay of daily high temperature to demonstrate how temperature might influence the distance I walked/ran. In my exploratory visualizations, one examines distance walked/ran as a function of school day(yes/no), and the other examines distance walked/ran as a function of daily high temperature. All of the response variables are the distance walked/ran, but I use different predictor variables to examine the possible relationships and patterns. In my affective visualization, it is hard to see patterns because the predictor variable is date. Although, the day I walk the least was also the hottest, and the days I walked the most were mild/warm temperatures (which is subjective to my personal beliefs about temperature). In my categorical exploratory visualization, I can see that the median walking/running distance is similar for both school days and non-school days. In my continuous exploratory visualization, I can see that there is a slight increase in walking/running distance as temperature increases - but I have not ran the tests to confirm. However, the day I walked the least was also the hottest - an outlier. These patterns are different between visualizations because they involve different predictor variables. Unfortunately I was sick and did not attend workshop in week 9. I got full points for my affective visualization in homework 3, so I did not make any changes before workshop week 10. To advance this visualization, I would like to recreate it on paper, so that I can make it more aesthetically pleasing. 
+
+## b. Sharing your affective visualization
+
+Attended week 10 workshop!
 
