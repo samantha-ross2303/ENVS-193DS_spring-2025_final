@@ -29,13 +29,21 @@ sst <- read_csv(here("data", "SST_update2023.csv")) # storing SBC LTER sea surfa
 
 ```
 
-# Problem 1. Research writng 
+# Problem 1. Research writng
 
 ## a. Transparent statistical methods
 
+In part 1, they used a correlation test, probably Pearson's r, to asses the relationship between distance from headwaters and nitrogen load. In part 2, they used a one-way ANOVA to compare average nitrogen loads across five sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). The one grouping variable is source type.
+
 ## b. More information needed
 
+In part 2, we rejected the null hypothesis because the p-value (0.02) is less than the significance level (α = significance level), indicating that average nitrogen load differs by source. However, since ANOVA only tells us that at least one group differs, we need to run a post-hoc test, such as Tukey’s HSD, to identify which specific sources differ significantly. We should also calculate the effect size (η²) to determine how much of the variation in nitrogen load is explained by source type — providing environmental context on whether the differences are negligible, small, medium, or large. It would also be relevant to include group means with confidence intervals, as differences between group means with confidence intervals for differences between group means.
+
 ## c. Suggestions for rewriting
+
+Part 1: Our results suggest that there is a correlation between between distance from headwater (km) and annual total nitrogen load (kg year\^-1). There is a weak/moderate/strong positive/negative relationship between distance from headwater (km) and annual total nitrogen load (kg year\^-1) (Pearson’s r, r = correlation coefficient, p = 0.03, ⍺ = significance level).
+
+Part 2: Our results suggest a difference in average nitrogen load (kg year\^-1) between sources, with a negligible/small/moderate/large (η\^2 = effect size) effect of source, suggesting that some land uses contribute more nitrogen to the San Joaquin River Delta than others. Sources differed in nitrogen load (one-way ANOVA, F(among groups df, between groups df) = F-statistic, p = 0.02, ⍺ = significance level), and pairwise comparisons between sources showed that \_\_\_\_ and \_\_\_\_ sources differed from each other. Generally, nitrogen loads from \_\_\_\_ tend to be smaller/larger than nitrogen loads from \_\_\_\_(\_\_\_ kg year\^-1 smaller/larger, 95% CI: \[upper bound, lower bound\] kg year\^-1).
 
 # Problem 2. Data visualization
 
@@ -99,10 +107,10 @@ sst_clean <- sst |>
   # ungroup data frame
   ungroup()
 
-# Display 5 random rows
+# displaying 5 random rows
 sst_clean |> slice_sample(n = 5)
 
-# Structure
+# structure
 str(sst_clean)
 ```
 
@@ -149,14 +157,12 @@ ggplot(sst_clean,
 
 # Problem 3. Data analysis
 
-
 # Problem 4. Affective and exploratory visualizations
 
 ## a. Comparing visualizations
 
-The visualizations represent different data that I collected, in a way. The predictor variable in my affective visualization is the date (on the x-axis), and the response variable is distance ran/walked per day (on the y-axis) - since it is going in chronological order. There is an additional overlay of daily high temperature to demonstrate how temperature might influence the distance I walked/ran. In my exploratory visualizations, one examines distance walked/ran as a function of school day(yes/no), and the other examines distance walked/ran as a function of daily high temperature. All of the response variables are the distance walked/ran, but I use different predictor variables to examine the possible relationships and patterns. In my affective visualization, it is hard to see patterns because the predictor variable is date. Although, the day I walk the least was also the hottest, and the days I walked the most were mild/warm temperatures (which is subjective to my personal beliefs about temperature). In my categorical exploratory visualization, I can see that the median walking/running distance is similar for both school days and non-school days. In my continuous exploratory visualization, I can see that there is a slight increase in walking/running distance as temperature increases - but I have not ran the tests to confirm. However, the day I walked the least was also the hottest - an outlier. These patterns are different between visualizations because they involve different predictor variables. Unfortunately I was sick and did not attend workshop in week 9. I got full points for my affective visualization in homework 3, so I did not make any changes before workshop week 10. To advance this visualization, I would like to recreate it on paper, so that I can make it more aesthetically pleasing. 
+The visualizations represent different data that I collected, in a way. The predictor variable in my affective visualization is the date (on the x-axis), and the response variable is distance ran/walked per day (on the y-axis) - since it is going in chronological order. There is an additional overlay of daily high temperature to demonstrate how temperature might influence the distance I walked/ran. In my exploratory visualizations, one examines distance walked/ran as a function of school day(yes/no), and the other examines distance walked/ran as a function of daily high temperature. All of the response variables are the distance walked/ran, but I use different predictor variables to examine the possible relationships and patterns. In my affective visualization, it is hard to see patterns because the predictor variable is date. Although, the day I walk the least was also the hottest, and the days I walked the most were mild/warm temperatures (which is subjective to my personal beliefs about temperature). In my categorical exploratory visualization, I can see that the median walking/running distance is similar for both school days and non-school days. In my continuous exploratory visualization, I can see that there is a slight increase in walking/running distance as temperature increases - but I have not ran the tests to confirm. However, the day I walked the least was also the hottest - an outlier. These patterns are different between visualizations because they involve different predictor variables. Unfortunately I was sick and did not attend workshop in week 9. I got full points for my affective visualization in homework 3, so I did not make any changes before workshop week 10. To advance this visualization, I would like to recreate it on paper, so that I can make it more aesthetically pleasing.
 
 ## b. Sharing your affective visualization
 
 Attended week 10 workshop!
-
