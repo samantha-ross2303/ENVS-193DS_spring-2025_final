@@ -1,5 +1,5 @@
 ---
-title: "ENVS-193DS_spring-2025_final"
+title: "ENVS 193DS Spring 2025 Final"
 author: "Samantha Ross"
 date: "06-11-2025"
 format:
