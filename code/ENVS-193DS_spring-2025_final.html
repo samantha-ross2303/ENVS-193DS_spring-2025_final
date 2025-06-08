@@ -148,20 +148,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SST_update2023.csv"</span>)) <span class="co"># storing SBC LTER sea surface temp data as an object called sst</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SST_update2023.csv"</span>)) <span class="co"># storing SBC LTER sea surface temp data as an object called sst</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="problem-1.-research-writng" class="level1">
 <h1>Problem 1. Research writng</h1>
 <section id="a.-transparent-statistical-methods" class="level2">
 <h2 class="anchored" data-anchor-id="a.-transparent-statistical-methods">a. Transparent statistical methods</h2>
+<p>In part 1, they used a correlation test, probably Pearson’s r, to asses the relationship between distance from headwaters and nitrogen load. In part 2, they used a one-way ANOVA to compare average nitrogen loads across five sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands). The one grouping variable is source type.</p>
 </section>
 <section id="b.-more-information-needed" class="level2">
 <h2 class="anchored" data-anchor-id="b.-more-information-needed">b. More information needed</h2>
+<p>In part 2, we rejected the null hypothesis because the p-value (0.02) is less than the significance level (α = significance level), indicating that average nitrogen load differs by source. However, since ANOVA only tells us that at least one group differs, we need to run a post-hoc test, such as Tukey’s HSD, to identify which specific sources differ significantly. We should also calculate the effect size (η²) to determine how much of the variation in nitrogen load is explained by source type — providing environmental context on whether the differences are negligible, small, medium, or large. It would also be relevant to include group means with confidence intervals, as differences between group means with confidence intervals for differences between group means.</p>
 </section>
 <section id="c.-suggestions-for-rewriting" class="level2">
 <h2 class="anchored" data-anchor-id="c.-suggestions-for-rewriting">c.&nbsp;Suggestions for rewriting</h2>
+<p>Part 1: Our results suggest that there is a correlation between between distance from headwater (km) and annual total nitrogen load (kg year^-1). There is a weak/moderate/strong positive/negative relationship between distance from headwater (km) and annual total nitrogen load (kg year^-1) (Pearson’s r, r = correlation coefficient, p = 0.03, ⍺ = significance level).</p>
+<p>Part 2: Our results suggest a difference in average nitrogen load (kg year^-1) between sources, with a negligible/small/moderate/large (η^2 = effect size) effect of source, suggesting that some land uses contribute more nitrogen to the San Joaquin River Delta than others. Sources differed in nitrogen load (one-way ANOVA, F(among groups df, between groups df) = F-statistic, p = 0.02, ⍺ = significance level), and pairwise comparisons between sources showed that ____ and ____ sources differed from each other. Generally, nitrogen loads from ____ tend to be smaller/larger than nitrogen loads from ____(___ kg year^-1 smaller/larger, 95% CI: [upper bound, lower bound] kg year^-1).</p>
 </section>
 </section>
 <section id="problem-2.-data-visualization" class="level1">
@@ -226,19 +232,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ungroup data frame</span></span>
 <span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Display 5 random rows</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co"># displaying 5 random rows</span></span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>sst_clean <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   year  month mean_monthly_sst
   &lt;fct&gt; &lt;ord&gt;            &lt;dbl&gt;
-1 2022  May               13.4
-2 2020  Dec               14.5
-3 2021  May               14.4
-4 2020  Sep               18.7
-5 2023  Jul               16.3</code></pre>
+1 2023  Mar               12.8
+2 2023  Feb               13  
+3 2019  Mar               13.6
+4 2021  Feb               13.1
+5 2018  Dec               15.6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Structure</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># structure</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sst_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [72 × 3] (S3: tbl_df/tbl/data.frame)

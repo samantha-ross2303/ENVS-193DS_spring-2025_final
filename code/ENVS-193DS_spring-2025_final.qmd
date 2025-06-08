@@ -24,6 +24,8 @@ library(janitor)
 library(readxl)
 library(dplyr)
 library(scales)
+library(ggeffects)
+library(MuMIn)
 
 sst <- read_csv(here("data", "SST_update2023.csv")) # storing SBC LTER sea surface temp data as an object called sst
 
