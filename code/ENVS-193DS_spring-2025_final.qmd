@@ -29,6 +29,8 @@ library(MuMIn)
 
 sst <- read_csv(here("data", "SST_update2023.csv")) # storing SBC LTER sea surface temp data as an object called sst
 
+nest_boxes <- read_csv(here("data", "occdist.csv")) # storing data for problem 3 as an object called nest_boxes
+
 ```
 
 # Problem 1. Research writng
@@ -158,6 +160,36 @@ ggplot(sst_clean,
 ```
 
 # Problem 3. Data analysis
+
+## a. Response variable
+
+The 1s and 0s indicate if a species (sp = swift parrot, cs = common starling, e = empty, tm = tree martin) occupied a nest box. A 1 means the species used the box for nesting, and a 0 means a species did not.
+
+## b. Purpose of study
+
+Swift parrots (*Lathamus discolor*) are endangered and the target species for conservation, while Common Starlings (*Sturnus vulgaris*) and Tree Martins (*Petrochelidon nigricans*) are competitors that may exploit the nest boxes. The study aims to determine whether the boxes benefit the intended species or produce perverse outcomes by increasing nesting habitat for non-target competitor species.
+
+## c. Difference in "seasons"
+
+Those years/seasons are the summer breeding seasons of 2016 and 2019, when mast tree flowering events triggered Swift parrots to breed at the study area. In 2016, the nest boxes were newly deployed; in 2019, the boxes had been established for 3 years, allowing for non-target species to learn to identify them as a resource.   
+
+## d. Table of models
+
+
+
+## e. Run the models
+
+## f. Check the diagnostics
+
+## g. Select the best model
+
+## h. Visualize the model predictions
+
+## i. Write a caption for your figure
+
+## j. Calculate model predictions
+
+## k. Interpret your results
 
 # Problem 4. Affective and exploratory visualizations
 
