@@ -4,23 +4,26 @@ Spring 2025
 
 ## General information
 
-This dataset is from: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. <https://doi.org/10.5061/dryad.83bk3j9sb>
+The dataset for problem 2 is from: Kui, L. 2024. Daily sea surface temperature in Santa Barbara channel between 1982 and 2023 ver 3. Environmental Data Initiative. <https://doi.org/10.6073/pasta/e930954949b2635928b8be6824630f84>.
 
-The published paper is: 
 
-This repository is for demonstrating fitting models with categorical and continuous predictors and model selection.
+The dataset for problem 3 is from: Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. <https://doi.org/10.5061/dryad.83bk3j9sb>.
+
+The published paper for problem 3 is: Stojanovic, D., Owens, G., Young, C.M., Alves, F. and Heinsohn, R. (2021), Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird. Restor Ecol, 29: e13319. <https://doi.org/10.1111/rec.13319>.
+
+This repository is for research writing, data visualization, data analysis, and affective and exploratory visualizations.
 
 ### Packages
 
 ```         
 library(tidyverse) # general use
-library(lubridate) # 
-library(ggplot2) # 
-library(flextable) # 
-library(gt) # 
+library(lubridate) # working with dates and times
+library(ggplot2) # creating plots and data visualizations
+library(flextable) # creating tables
+library(gt) # creating tables
 library(here) # file organization
 library(janitor) # cleaning data frames
-library (dplyr) # 
+library (dplyr) # wrangling and manipulating data
 library(scales) # modifying axis labels
 library(ggeffects) # getting model predictions
 library(MuMIn) # model selection
@@ -32,17 +35,16 @@ File structure:
 
 ```         
 .
-├── ENVS-193DS_workshop-08.Rproj
+├── ENVS-193DS_spring-2025_final.Rproj
 ├── README.md
 ├── code                                     # code folder
-│   ├── workshop-08_code_KEY.Rmd             # keys
-│   ├── workshop-08_code_KEY.html            # rendered output is from .qmd key
-│   ├── workshop-08_code_KEY.qmd
-│   ├── workshop-08_code_KEY_files
-│   ├── workshop-08_code_TEMPLATE.Rmd        # templates
-│   └── workshop-08_code_TEMPLATE.qmd
+│   ├── ENVS-193DS_spring-2025_final_files
+│   ├── ENVS-193DS_spring-2025_final.html     
+│   └── ENVS-193DS_spring-2025_final.qmd
 └── data                                     # data folder
-    └── Valliere_etal_EcoApps_Data.xlsx
+    ├── SST_update2023.csv
+    └── occdist.csv
+    
 ```
 
 All code is in the `code` folder. The code runs models, generates model predictions, and visualizes data.

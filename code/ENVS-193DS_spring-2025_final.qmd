@@ -189,7 +189,7 @@ Those years/seasons are the summer breeding seasons of 2016 and 2019, when mast 
 ```{r cleaning-nest-boxes-data, include=FALSE}
 
 # creating a clean data frame
-nest_boxes_clean <- nest_boxes |>  # starting with the drought_exp object
+nest_boxes_clean <- nest_boxes |>  # starting with the nest_boxes object
   # cleaning column names
   clean_names() |> 
   # renaming columns
@@ -203,9 +203,13 @@ nest_boxes_clean <- nest_boxes |>  # starting with the drought_exp object
   select(edge_distance, season, swift_parrot) |> 
   # mutating variables to be categorical
   mutate(
-    season = factor(season),
-    swift_parrot = factor(swift_parrot, levels = c(0, 1))
-  )
+    season = as.factor(season),
+    swift_parrot = factor(swift_parrot, levels = c(0, 1))) |> # reference: 0/no
+  drop_na() # ensure no NAs before modeling
+
+
+# data sample
+slice_sample(nest_boxes_clean, n=10)
 
 # checking the structure
 str(nest_boxes_clean)
@@ -218,14 +222,14 @@ str(nest_boxes_clean)
 model0 <- glm(
   swift_parrot ~ 1, # formula
   data = nest_boxes_clean, # data frame
-  family = "binomial" # binomial (0,1)
+  family = "binomial" # binomial distribution
 )
 
 # model 1: all predictors
 model1 <- glm(
   swift_parrot ~ season + edge_distance, # formula
   data = nest_boxes_clean, # data frame
-  family = "binomial" # binomial (0,1)
+  family = "binomial" # binomial distribution
 )
 
 # model 2: distance from edge
@@ -248,11 +252,21 @@ model3 <- glm(
 
 ```{r model-diagnostics}
 
-par(mfrow = c(2,2))
-plot(model0)
-plot(model1) # residuals look ok for best model
-plot(model2)
-plot(model3)
+plot(
+  simulateResiduals(model1) # residuals look okay for this model
+)
+
+plot(
+  simulateResiduals(model2)
+)
+
+plot(
+  simulateResiduals(model3)
+)
+
+plot(
+  simulateResiduals(model0)
+)
 
 ```
 
@@ -267,8 +281,7 @@ AICc(model1, # best model: distance from edge + season (lowest AIC)
   # arranging output in descending order of AIC
   arrange(AICc)
 
-summary(model1)
-# reference level for season:
+# reference: 2016 season
 ```
 
 The best model as determined by Akaike’s Information Criterion (AIC) was **model 1**, where the response variable is presence of swift parrots, and the predictor variables are season and distance from edge.
@@ -277,37 +290,8 @@ The best model as determined by Akaike’s Information Criterion (AIC) was **mod
 
 ```{r visualizing-model-predictions}
 
-# prediction data frame
-model1_predictions <- ggpredict(
-  model1, # model object
-  terms = c("season", "edge_distance")) |>  # predictors
-  # treating this like a regular data frame
-  # renaming the columns
-  rename(season = x,
-         edge_distance = group)
 
-# final figure
-ggplot(nest_boxes_clean,
-       aes(x = edge_distance,
-           y = swift_parrot,
-           color = season,
-           fill = season))+
-  geom_point(size = 3,
-             alpha = 0.4) +
-  geom_ribbon(data = model1_predictions,
-    aes(x = edge_distance,
-        y = predicted,
-        ymin = conf.low,
-        ymax = conf.high),
-      alpha = 0.4) +
-  geom_line(data = model1_predictions,
-            aes(x = edge_distance,
-                y = predicted)) +
-  scale_y_continuous(limits = c(0,1),
-                     breaks = c(0,1))
-  
 ```
-
 
 ## i. Write a caption for your figure
 

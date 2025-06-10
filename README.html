@@ -357,27 +357,28 @@ display: none;
 <p>Spring 2025</p>
 <div id="general-information" class="section level2">
 <h2>General information</h2>
-<p>This dataset is from: Valliere, Justin; Zhang, Jacqueline; Sharifi,
-M.; Rundel, Philip (2019). Data from: Can we condition native plants to
-increase drought tolerance and improve restoration success? [Dataset].
-Dryad. <a href="https://doi.org/10.5061/dryad.v0861f7" class="uri">https://doi.org/10.5061/dryad.v0861f7</a></p>
-<p>The published paper is: Valliere J. M., J. Zhang, M. R. Sharifi, and
-P. W. Rundel. 2019. Can we condition native plants to increase drought
-tolerance and improve restoration success? Ecological Applications
-29(3):e01863. <a href="https://doi.org/10.1002/eap.1863">10.1002/eap.1863</a>.</p>
-<p>This repository is for demonstrating fitting models with categorical
-and continuous predictors and model selection.</p>
+<p>The dataset for problem 2 is from: Kui, L. 2024. Daily sea surface
+temperature in Santa Barbara channel between 1982 and 2023 ver 3.
+Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/e930954949b2635928b8be6824630f84" class="uri">https://doi.org/10.6073/pasta/e930954949b2635928b8be6824630f84</a>.</p>
+<p>The dataset for problem 3 is from: Stojanovic, Dejan et al. (2021).
+Do nest boxes breed the target species or its competitors? A case study
+of a critically endangered bird [Dataset]. Dryad. <a href="https://doi.org/10.5061/dryad.83bk3j9sb" class="uri">https://doi.org/10.5061/dryad.83bk3j9sb</a>.</p>
+<p>The published paper for problem 3 is: Stojanovic, D., Owens, G.,
+Young, C.M., Alves, F. and Heinsohn, R. (2021), Do nest boxes breed the
+target species or its competitors? A case study of a critically
+endangered bird. Restor Ecol, 29: e13319. <a href="https://doi.org/10.1111/rec.13319" class="uri">https://doi.org/10.1111/rec.13319</a>.</p>
+<p>This repository is for research writing, data visualization, data
+analysis, and affective and exploratory visualizations.</p>
 <div id="packages" class="section level3">
 <h3>Packages</h3>
 <pre><code>library(tidyverse) # general use
-library(lubridate) # 
-library(ggplot2) # 
-library(flextable) # 
-library(gt) # 
+library(lubridate) # working with dates and times
+library(ggplot2) # creating plots and data visualizations
+library(flextable) # creating tables
+library(gt) # creating tables
 library(here) # file organization
 library(janitor) # cleaning data frames
-library(readxl) # reading excel files
-library (dplyr) # 
+library (dplyr) # wrangling and manipulating data
 library(scales) # modifying axis labels
 library(ggeffects) # getting model predictions
 library(MuMIn) # model selection</code></pre>
@@ -387,17 +388,16 @@ library(MuMIn) # model selection</code></pre>
 <h2>Data and file information</h2>
 <p>File structure:</p>
 <pre><code>.
-├── ENVS-193DS_workshop-08.Rproj
+├── ENVS-193DS_spring-2025_final.Rproj
 ├── README.md
 ├── code                                     # code folder
-│   ├── workshop-08_code_KEY.Rmd             # keys
-│   ├── workshop-08_code_KEY.html            # rendered output is from .qmd key
-│   ├── workshop-08_code_KEY.qmd
-│   ├── workshop-08_code_KEY_files
-│   ├── workshop-08_code_TEMPLATE.Rmd        # templates
-│   └── workshop-08_code_TEMPLATE.qmd
+│   ├── ENVS-193DS_spring-2025_final_files
+│   ├── ENVS-193DS_spring-2025_final.html     
+│   └── ENVS-193DS_spring-2025_final.qmd
 └── data                                     # data folder
-    └── Valliere_etal_EcoApps_Data.xlsx</code></pre>
+    ├── SST_update2023.csv
+    └── occdist.csv
+    </code></pre>
 <p>All code is in the <code>code</code> folder. The code runs models,
 generates model predictions, and visualizes data.</p>
 </div>
