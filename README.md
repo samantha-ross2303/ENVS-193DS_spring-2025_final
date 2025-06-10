@@ -20,7 +20,6 @@ library(flextable) #
 library(gt) # 
 library(here) # file organization
 library(janitor) # cleaning data frames
-library(readxl) # reading excel files
 library (dplyr) # 
 library(scales) # modifying axis labels
 library(ggeffects) # getting model predictions

@@ -21,7 +21,6 @@ library(flextable)
 library(gt)
 library(here)
 library(janitor)
-library(readxl)
 library(dplyr)
 library(scales)
 library(ggeffects)
@@ -171,15 +170,81 @@ Swift parrots (*Lathamus discolor*) are endangered and the target species for co
 
 ## c. Difference in "seasons"
 
-Those years/seasons are the summer breeding seasons of 2016 and 2019, when mast tree flowering events triggered Swift parrots to breed at the study area. In 2016, the nest boxes were newly deployed; in 2019, the boxes had been established for 3 years, allowing for non-target species to learn to identify them as a resource.   
+Those years/seasons are the summer breeding seasons of 2016 and 2019, when mast tree flowering events triggered Swift parrots to breed at the study area. In 2016, the nest boxes were newly deployed; in 2019, the boxes had been established for 3 years, allowing for non-target species to learn to identify them as a resource.
 
 ## d. Table of models
 
+4 models total:
 
+| Model number | Season | Distance to forest edge | Model description |
+|:-----------:|:-----------:|:-----------:|----------------------|
+| 0 |  |  | no predictors (null model) |
+| 1 | X | X | all predictors (full/saturated model) |
+| 2 | X |  | season as the only predictor |
+| 3 |  | X | Distance to forest edge as the only predictor |
 
 ## e. Run the models
 
+```{r cleaning-nest-boxes-data, include=FALSE}
+
+# creating a clean data frame
+nest_boxes_clean <- nest_boxes |>  # starting with the drought_exp object
+  # cleaning column names
+  clean_names() |> 
+  # renaming columns
+  rename(
+    swift_parrot = sp,
+    empty = e, 
+    common_starling = cs, 
+    tree_martin = tm
+  ) |> 
+  # selecting columns
+  select(edge_distance, season, swift_parrot) |> 
+  # mutating variables to be categorical
+  mutate(
+    season = factor(season),
+    swift_parrot = factor(swift_parrot, levels = c(0, 1))
+  )
+
+# checking the structure
+str(nest_boxes_clean)
+
+```
+
+```{r run-the-models, include=FALSE}
+
+# model 0: null model
+model0 <- lm(
+  swift_parrot ~ 1, # formula
+  data = nest_boxes_clean # data frame
+)
+
+# model 1: all predictors
+model1 <- lm(
+  swift_parrot ~ season + edge_distance, # formula
+  data = nest_boxes_clean # data frame
+)
+
+# model 2: distance from edge
+model2 <- lm(
+  swift_parrot ~ edge_distance,
+  data = nest_boxes_clean
+)
+
+# model 3: season
+model3 <- lm(
+  swift_parrot ~ season,
+  data = nest_boxes_clean
+)
+
+```
+
 ## f. Check the diagnostics
+
+```{r}
+
+```
+
 
 ## g. Select the best model
 
