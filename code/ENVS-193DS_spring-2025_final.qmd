@@ -25,6 +25,7 @@ library(dplyr)
 library(scales)
 library(ggeffects)
 library(MuMIn)
+library(DHARMa)
 
 sst <- read_csv(here("data", "SST_update2023.csv")) # storing SBC LTER sea surface temp data as an object called sst
 
@@ -177,7 +178,7 @@ Those years/seasons are the summer breeding seasons of 2016 and 2019, when mast 
 4 models total:
 
 | Model number | Season | Distance to forest edge | Model description |
-|:-----------:|:-----------:|:-----------:|----------------------|
+|:--:|:--:|:--:|----|
 | 0 |  |  | no predictors (null model) |
 | 1 | X | X | all predictors (full/saturated model) |
 | 2 | X |  | season as the only predictor |
@@ -211,44 +212,102 @@ str(nest_boxes_clean)
 
 ```
 
-```{r run-the-models, include=FALSE}
+```{r run-the-models, results='hide'}
 
 # model 0: null model
-model0 <- lm(
+model0 <- glm(
   swift_parrot ~ 1, # formula
-  data = nest_boxes_clean # data frame
+  data = nest_boxes_clean, # data frame
+  family = "binomial" # binomial (0,1)
 )
 
 # model 1: all predictors
-model1 <- lm(
+model1 <- glm(
   swift_parrot ~ season + edge_distance, # formula
-  data = nest_boxes_clean # data frame
+  data = nest_boxes_clean, # data frame
+  family = "binomial" # binomial (0,1)
 )
 
 # model 2: distance from edge
-model2 <- lm(
+model2 <- glm(
   swift_parrot ~ edge_distance,
-  data = nest_boxes_clean
+  data = nest_boxes_clean,
+  family = "binomial"
 )
 
 # model 3: season
-model3 <- lm(
+model3 <- glm(
   swift_parrot ~ season,
-  data = nest_boxes_clean
+  data = nest_boxes_clean,
+  family = "binomial"
 )
 
 ```
 
 ## f. Check the diagnostics
 
-```{r}
+```{r model-diagnostics}
+
+par(mfrow = c(2,2))
+plot(model0)
+plot(model1) # residuals look ok for best model
+plot(model2)
+plot(model3)
 
 ```
 
-
 ## g. Select the best model
 
+```{r model-selection}
+
+AICc(model1, # best model: distance from edge + season (lowest AIC)
+     model2,
+     model3, 
+     model0) |> 
+  # arranging output in descending order of AIC
+  arrange(AICc)
+
+summary(model1)
+# reference level for season:
+```
+
+The best model as determined by Akaike’s Information Criterion (AIC) was **model 1**, where the response variable is presence of swift parrots, and the predictor variables are season and distance from edge.
+
 ## h. Visualize the model predictions
+
+```{r visualizing-model-predictions}
+
+# prediction data frame
+model1_predictions <- ggpredict(
+  model1, # model object
+  terms = c("season", "edge_distance")) |>  # predictors
+  # treating this like a regular data frame
+  # renaming the columns
+  rename(season = x,
+         edge_distance = group)
+
+# final figure
+ggplot(nest_boxes_clean,
+       aes(x = edge_distance,
+           y = swift_parrot,
+           color = season,
+           fill = season))+
+  geom_point(size = 3,
+             alpha = 0.4) +
+  geom_ribbon(data = model1_predictions,
+    aes(x = edge_distance,
+        y = predicted,
+        ymin = conf.low,
+        ymax = conf.high),
+      alpha = 0.4) +
+  geom_line(data = model1_predictions,
+            aes(x = edge_distance,
+                y = predicted)) +
+  scale_y_continuous(limits = c(0,1),
+                     breaks = c(0,1))
+  
+```
+
 
 ## i. Write a caption for your figure
 
