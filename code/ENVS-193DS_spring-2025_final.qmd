@@ -360,7 +360,7 @@ In 2016, the predicted probability of Swift Parrot nest box occupancy 0 m from f
 
 ## k. Interpret your results
 
-In both the 2016 and 2019 seasons, Swift Parrot nest box occupancy was higher near the forest edge and declined with increasing distance (Figure 1). In 2016, the predicted probability of occupancy was 0.48 at 0 m and dropped to 0.12 at 900 m. In 2019, occupancy was lower overall, with a probability of 0.30 at 0 m and 0.06 at 900 m. This pattern suggests that Swift Parrots prefer nest boxes closer to the forest edge. The lower occupancy in 2019 suggests increased competition from non-target species like Common Starlings and Tree Martins, which had more time to discover and dominate nest boxes left in place since 2016.
+In both the 2016 and 2019 seasons, Swift Parrot nest box occupancy was higher near the forest edge and declined with increasing distance (Figure 1). In 2016, the predicted probability of occupancy was 0.48 at 0 m and dropped to 0.12 at 900 m. In 2019, occupancy was lower overall, with a probability of 0.30 at 0 m and 0.06 at 900 m. This pattern suggests that Swift Parrots prefer nest boxes closer to the forest edge. The lower occupancy in 2019 suggests increased competition from non-target species Common Starlings, who also prefer nest boxes closer to the forest edge, which had more time to discover and dominate nest boxes left in place since 2016. In contrast, Tree Martins showed the opposite relationship: they were more likley to occupy nest boxes farther from the forest edge.
 
 # Problem 4. Affective and exploratory visualizations
 

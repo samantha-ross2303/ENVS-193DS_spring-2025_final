@@ -253,11 +253,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 5 × 3
   year  month mean_monthly_sst
   &lt;fct&gt; &lt;ord&gt;            &lt;dbl&gt;
-1 2019  Mar               13.6
-2 2020  May               14.6
-3 2021  Jun               15.9
-4 2022  Dec               14.8
-5 2023  Jan               14  </code></pre>
+1 2019  Feb               14.1
+2 2020  Sep               18.7
+3 2019  Dec               15  
+4 2022  Feb               14.1
+5 2021  Sep               17.1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># structure</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sst_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -560,7 +560,7 @@ edge_distance | Predicted |     95% CI
 </section>
 <section id="k.-interpret-your-results" class="level2">
 <h2 class="anchored" data-anchor-id="k.-interpret-your-results">k. Interpret your results</h2>
-<p>In both the 2016 and 2019 seasons, Swift Parrot nest box occupancy was higher near the forest edge and declined with increasing distance (Figure 1). In 2016, the predicted probability of occupancy was 0.48 at 0 m and dropped to 0.12 at 900 m. In 2019, occupancy was lower overall, with a probability of 0.30 at 0 m and 0.06 at 900 m. This pattern suggests that Swift Parrots prefer nest boxes closer to the forest edge. The lower occupancy in 2019 suggests increased competition from non-target species like Common Starlings and Tree Martins, which had more time to discover and dominate nest boxes left in place since 2016.</p>
+<p>In both the 2016 and 2019 seasons, Swift Parrot nest box occupancy was higher near the forest edge and declined with increasing distance (Figure 1). In 2016, the predicted probability of occupancy was 0.48 at 0 m and dropped to 0.12 at 900 m. In 2019, occupancy was lower overall, with a probability of 0.30 at 0 m and 0.06 at 900 m. This pattern suggests that Swift Parrots prefer nest boxes closer to the forest edge. The lower occupancy in 2019 suggests increased competition from non-target species Common Starlings, who also prefer nest boxes closer to the forest edge, which had more time to discover and dominate nest boxes left in place since 2016. In contrast, Tree Martins showed the opposite relationship: they were more likley to occupy nest boxes farther from the forest edge.</p>
 </section>
 </section>
 <section id="problem-4.-affective-and-exploratory-visualizations" class="level1">
