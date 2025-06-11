@@ -290,14 +290,77 @@ The best model as determined by Akaike’s Information Criterion (AIC) was **mod
 
 ```{r visualizing-model-predictions}
 
+# model1 predictions
+mod_preds <- ggpredict(
+  model1, # model object
+  # predictors
+  terms = c("edge_distance [0:1000 by = 10]", # generate predictions every 10 meters from 0 to 1000 m
+            "season")) # for each level of the season variable (2016 and 2019)
+
+# visualizing the model predictions
+# base layer: ggplot
+# using the nest_boxes_clean object (underlying data)
+ggplot(nest_boxes_clean,
+       aes(x = edge_distance,
+           # convert factor to numeric (0/1)
+           y = as.numeric(as.character(swift_parrot)))) +
+  # first layer: scatter plot showing individual observations, color coded by season
+  geom_point(
+    aes(color = season),
+    size = 3,
+    alpha = 0.4) +
+  # second layer: confidence ribbon for model predictions
+  geom_ribbon(data = mod_preds,
+              aes(x = x, # x = distance from forest edge
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high,
+                  fill = group), # group = season
+              alpha = 0.4) +
+  # third layer: line showing model predictions for each season
+  geom_line(data = mod_preds,
+            aes(x = x,
+                y = predicted,
+                color = group),
+            size = 1.2) +
+  # setting the y-axis from 0 to 1, with tick marks only at 0 and 1
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 1)) +
+  # axis labels and legend titles 
+  labs(x = "Distance from forest edge (m)",
+       y = "Probability of Swift Parrot nest box occupancy",
+       fill = "Season",
+       color = "Season") +
+  # changing colors from default 
+  scale_color_manual(values = c("2016" = "dodgerblue",
+                                "2019" = "red")) + 
+  scale_fill_manual(values = c("2016" = "dodgerblue",
+                                "2019" = "red")) + 
+  # changing theme
+  theme_classic() + 
+  theme(panel.grid = element_blank()) # removing grid lines
 
 ```
 
 ## i. Write a caption for your figure
 
+**Figure 1. The probability of Swift Parrot nest box occupancy decreases with distance from forest edge in 2016 and 2019.** Figure 1 shows the predicted probability of nest box occupancy by Swift Parrots as a function of distance from the forest edge, based on a generalized linear model with a binomial error distribution including season and distance as predictors. Solid lines represent model predictions and ribbons represent 95% confidence intervals. Observed occupancy data are shown as individual points, colored by season. In both seasons, the probability of occupancy declined with increasing distance, with overall lower occupancy in 2019 compared to 2016. Data from Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird \[Dataset\]. Dryad.
+
 ## j. Calculate model predictions
 
+```{r calculate-model-predictions}
+
+# what is the predicted probabilities of Swift Parrot nest box occupancy with 95% at 0 m from forest edge and 900 m from forest edge for each level in season?
+
+ggpredict(model1, # model
+          terms = c("edge_distance [0,900]", "season")) # at 0 m and 900 m from the forest edge, for each level of season (2016 and 2019)
+
+```
+
+In 2016, the predicted probability of Swift Parrot nest box occupancy 0 m from forest edge is 0.48, and 900 m from forest edge is 0.12. In 2019, the predicted probability of Swift Parrot nest box occupancy 0 m from forest edge is 0.30, and 900 m from forest edge is 0.06.
+
 ## k. Interpret your results
+
+In both the 2016 and 2019 seasons, Swift Parrot nest box occupancy was higher near the forest edge and declined with increasing distance (Figure 1). In 2016, the predicted probability of occupancy was 0.48 at 0 m and dropped to 0.12 at 900 m. In 2019, occupancy was lower overall, with a probability of 0.30 at 0 m and 0.06 at 900 m. This pattern suggests that Swift Parrots prefer nest boxes closer to the forest edge. The lower occupancy in 2019 suggests increased competition from non-target species like Common Starlings and Tree Martins, which had more time to discover and dominate nest boxes left in place since 2016.
 
 # Problem 4. Affective and exploratory visualizations
 
